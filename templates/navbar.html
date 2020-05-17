@@ -1,0 +1,13 @@
+<nav>
+  {% if user.is_anonymous %}
+    <div class=navitem><a href="{% url 'home' %}">Home</a></div>
+    <div class=navitem><a href="{% url 'about' %}">About Us</a></div>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <div class=navitem><a href="{% url 'home' %}">Home</a></div>
+    <div class=navitem><a href="{% url 'about' %}">About Us</a></div>
+  {% endif %}
+  {% if user.is_superuser %}
+    <div class=navitem><a href="/admin/">Admin</a></div>
+  {% endif %}
+</nav>

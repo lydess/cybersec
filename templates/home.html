@@ -1,0 +1,15 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+  <div class="page">
+    <h1>Home page</h1>
+      <p>General content</p>
+    {% if user.is_authenticated %}
+      <p>Content viewable by logged in users.</p>
+    {% else %}
+      <p>Content viewable by users not logged in.</p>
+    {% endif %}
+  </div>
+{% endblock %}

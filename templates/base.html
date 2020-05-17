@@ -1,0 +1,67 @@
+<!-- templates/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Site/Application Name{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{% static "users/css/active.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "contact/css/contact.css" %}">	
+</head>
+<body>
+  <header>
+    <div>
+      <div class="login">
+        {% if user.is_authenticated %}
+          <text>Hello {{ user.first_name }} <a href="{% url 'logout' %}">Logout</a></text>
+        {% else %}
+          <a href="{% url 'login' %}">Login</a></br>
+          <a href="{% url 'signup' %}">Signup</a>
+	  <a href="{% url 'password_reset' %}">Reset Password</a>
+        {% endif %}
+      </div>
+      <div class="logo">
+      <a href="{% url 'home' %}">
+        <img src={% static 'users/img/logo.png' %} style="width:100px;height:100px;">
+      </a>
+    </div>
+    </div>
+  </header>
+  <main>
+    <div>
+      {% if user.is_superuser %}
+        <li><a href="/admin/">Admin</a></li>
+      {% endif %}
+    </div>
+   <nav>
+  {% if user.is_anonymous %}
+    <div class=navitem><a href="{% url 'home' %}">Home</a></div>
+    <div class=navitem><a href="{% url 'contact' %}">Contact Us</a></div>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <div class=navitem><a href="{% url 'home' %}">Home</a></div>
+    <div class=navitem><a href="{% url 'about' %}">About Us</a></div>
+    <div class=navitem><a href="{% url 'contact' %}">Contact Us</a></div>
+  {% endif %}
+  {% if user.is_superuser %}
+    ...
+  {% endif %}
+</nav>
+  <div class="base">
+  </div>
+    {% block content %}
+    {% endblock %}
+  </main>
+  <footer>
+      <a> (c) Site/Application Owner {% now "Y" %} </a>
+      <a>Site Created by Me</a>
+  </footer>
+</body>
+<footer>
+  <a> (c) Site/Application Owner {% now "Y" %} </a>
+  <a href="{% url 'about' %}">About Us</a>
+  <a href="{% url 'privacy' %}">Privacy</a>
+  <a href="{% url 'terms' %}">Terms and Conditions</a>
+  <a href="/">Site Created by Me</a>
+</footer>
+</html>

@@ -1,0 +1,24 @@
+<!-- templates/contact.html -->
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Bare Bones Contact Page{% endblock %}
+{% block content %}
+  <div class="page">
+    <h1>Bare Bones Contact Page</h1>
+    <form method="post">
+      {% csrf_token %}
+      {% if user.is_anonymous %}
+        {{ form.as_p }}
+      {% endif %}
+      {% if user.is_authenticated %}
+        <p>First Name: {{ user.first_name }}</p>
+        <p>Last Name: {{ user.last_name }}</p>
+        <p>Email: {{ user.email }}</p>
+        {{ form.as_p }}
+      {% endif %}
+      <div class="form-actions">
+        <button type="submit">Send</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
